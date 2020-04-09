@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 /**
  *
@@ -23,7 +23,7 @@ export const setObjectForKey = async ({key, object, ttl = undefined }) => {
     };
     let stringedWrapper = JSON.stringify(wrappedObj);
 
-    return await AsyncStorage.setItem(key,stringedWrapper)
+    return await AsyncStorage.setItem(key, stringedWrapper)
 };
 
 

@@ -1,34 +1,39 @@
 import { User } from "../services/interface";
 import { setObjectForKey, getObjectForKey, removeObjectForKey } from "./deviceStorage";
+import { IUser } from "../store/models/user.interface";
+import { IAccount } from "src/store/models/account.interface";
 
-
-export var gVar: User = {
-    userId: '',
-    username: '',
-    password: '',
-    display_user: '',
+export var gVar: IAccount = {
+    user: {
+        userId: '',
+        username: '',
+        password: '',
+        fullname: '',
+        role:''
+    },
     accessToken: '',
     fcmToken: '',
-    avatarLink: '',
-    isActive: false,
+    isLogin: false,
     isNotFirst: false,
     isNotConnected: false //mac dinh dang ket noi
 }
 
-export const gDefautVar: User = {
-    userId: '', 
-    username: '',
-    password: '',
-    display_user: '',
+export const gDefautVar: IAccount = {
+    user: {
+        userId: '',
+        username: '',
+        password: '',
+        fullname: '',
+        role:''
+    },
     accessToken: '',
     fcmToken: '',
-    avatarLink: '',
-    isActive: false,
+    isLogin: false,
     isNotFirst: false,
-    isNotConnected: false 
+    isNotConnected: false //mac dinh dang ket noi
 }
 
-export function saveStateLogin(gVar: User) {
+export function saveStateLogin(gVar: IAccount) {
     const authStorage = {
         key: 'UserLogin',
         object: gVar
@@ -36,7 +41,7 @@ export function saveStateLogin(gVar: User) {
     setObjectForKey(authStorage);
 }
 
-export async function getStateLoginForgVar(): Promise<User> {
+export async function getStateLoginForgVar(): Promise<IAccount> {
     const userLogin = await getObjectForKey('UserLogin').catch((err: any) => console.log(err))
     Object.assign( gVar, userLogin);
     return gVar;
