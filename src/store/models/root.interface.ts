@@ -1,7 +1,8 @@
-//import { IProduct, ProductModificationStatus } from "./product.interface";
+import { IProduct, ProductModificationStatus } from "./product.interface";
 //import { INotification } from "./notification.interface";
 import { IUser } from "./user.interface";
 import { IAccount } from "./account.interface";
+import { ITask, TaskModificationStatus } from "./task.interface";
 
 export interface IRootPageStateType {
     area: string;
@@ -13,18 +14,25 @@ export interface IRootStateType {
 }
 export interface IStateType {
     root: IRootStateType;
-    //products: IProductState;
+    tasks: ITaskState;
+    products: IProductState;
     //notifications: INotificationState;
     users: IUserState;
     //orders: IOrdersState;
     account: IAccount;
 }
 
-// export interface IProductState {
-//     products: IProduct[];
-//     selectedProduct: IProduct | null;
-//     modificationState: ProductModificationStatus;
-// }
+export interface IProductState {
+    products: IProduct[];
+    selectedProduct: IProduct | null;
+    modificationState: ProductModificationStatus;
+}
+
+export interface ITaskState {
+    tasks: ITask[];
+    selectedTask: ITask | null;
+    modificationState: TaskModificationStatus;
+}
 
 export interface IActionBase {
     type: string;

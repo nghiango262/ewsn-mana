@@ -13,6 +13,7 @@ export var gVar: IAccount = {
     },
     accessToken: '',
     fcmToken: '',
+    userPass:'',
     isLogin: false,
     isNotFirst: false,
     isNotConnected: false //mac dinh dang ket noi
@@ -28,6 +29,7 @@ export const gDefautVar: IAccount = {
     },
     accessToken: '',
     fcmToken: '',
+    userPass:'',
     isLogin: false,
     isNotFirst: false,
     isNotConnected: false //mac dinh dang ket noi

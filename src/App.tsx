@@ -25,7 +25,7 @@ import { IStateType } from './store/models/root.interface';
 
 const Stack = createStackNavigator();
 const navOptionHandler = {
-  headerShown: false
+  headerShown: false,
 }
 
 const App = () => {
@@ -34,13 +34,16 @@ const App = () => {
     
   useEffect(():any => {
     isMountedRef.current = true;
-    //console.debug(navigationRef);
+    console.debug(navigationRef);
     return () => (isMountedRef.current = false);
   }, []);
 
-  // setTimeout(() => {
-  //   if(gVar.isLogin) navigationRef.current.navigate('Tasks').catch((err:any) => console.log(err));
-  // }, 5000 );
+  setTimeout(() => {
+    if(gVar.isLogin) {
+      //navigationRef.current.navigate('Search');
+      console.log('SEARCHING...')
+    }
+  }, 5000 );
 
   return (
       <NavigationContainer ref={navigationRef}>

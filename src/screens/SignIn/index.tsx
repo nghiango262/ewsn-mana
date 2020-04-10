@@ -62,12 +62,14 @@ const SignIn = (props:any) => {
         }
     }, [])
 
+    //call api de xac thuc tai khoan nguoi dung
     const handleLogin = async (credentials: LoginDto) => {
         const response = await login(credentials);
         //console.log(JSON.stringify(response, null, 2))
         const account: IAccount = {
             accessToken: response.accessToken,
             user: response.user,
+            userPass: credentials.password,
             isLogin: true
         }
         saveStateLogin(account)
