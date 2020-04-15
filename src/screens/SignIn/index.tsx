@@ -15,14 +15,15 @@ import {
     Button
 } from '../../components/react-ui';
 import {theme} from '../../constants';
-import {login} from '../../services/api'
+import {login} from '../../services/api';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { LoginDto } from '../../services/interface';
 import { successLogin } from '../../store/actions/account.action';
 import { IUser } from '../../store/models/user.interface';
-import { IAccount } from 'src/store/models/account.interface';
+import { IAccount } from '../../store/models/account.interface';
 import {saveStateLogin} from '../../utils/globalVar'
+import Loader from '../../components/Loader';
 
 const styles = StyleSheet.create({
     input:{
@@ -48,7 +49,8 @@ const styles = StyleSheet.create({
 });
 
 const SignIn = (props:any) => {
-    const dispatch: Dispatch<any> = useDispatch()
+    const dispatch: Dispatch<any> = useDispatch();
+    const [loading, setLoading] = useState(false);
     const [data, setData] = useState({ 
         username: 'nghia001' ,
         password: '123456'
@@ -64,6 +66,7 @@ const SignIn = (props:any) => {
 
     //call api de xac thuc tai khoan nguoi dung
     const handleLogin = async (credentials: LoginDto) => {
+        setLoading(true);
         const response = await login(credentials);
         //console.log(JSON.stringify(response, null, 2))
         const account: IAccount = {
@@ -74,8 +77,10 @@ const SignIn = (props:any) => {
         }
         saveStateLogin(account)
         dispatch(successLogin(account))
-        
+        setLoading(false);
     }
+
+    if (loading) return (<Loader />);
 
     return (
         

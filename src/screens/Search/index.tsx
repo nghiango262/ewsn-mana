@@ -2,12 +2,14 @@ import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import {Block, Text, Button, Input} from '../../components/react-ui';
 import SearchHeader, { Sizes } from '../../components/SearchHeader';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 import * as RootNavigation from '../../navigation/RootNavigation';
 import { ScrollView } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 import { TabView, TabBar, ScrollPager } from 'react-native-tab-view';
 import { IStateType, ITaskState } from 'src/store/models/root.interface';
 import { ITask } from 'src/store/models/task.interface';
+import {renderMyWorks} from '../Tasks';
 
 
 const AllRoute = () => {
@@ -18,11 +20,11 @@ const AllRoute = () => {
     );
 }
 
-const WorkRoute = () => {
-    const task: ITaskState = useSelector((state: IStateType) => state.tasks);
+const WorkRoute = (props:any) => {
+    const {tasks} = props;
     return (
         <Block style={[styles.scene, { backgroundColor: '#transparent' }]}>
-
+            {renderMyWorks(tasks)}
         </Block>
     );
 }
@@ -52,7 +54,13 @@ const BaoHanh = () => (
 )
 
 const Search = (props:any) => {
-    const { navigation} = props;
+    
+    const navigation = useNavigation();
+    console.log(`Navigation Index: `)
+    //
+    const tasks: ITask[] = useSelector((state: IStateType) => state.tasks.tasks);
+
+    //
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'first', title: 'Tất cả' },
@@ -69,7 +77,7 @@ const Search = (props:any) => {
             case 'first':
                 return <AllRoute />;
             case 'second':
-                return <WorkRoute />;
+                return <WorkRoute tasks={tasks}/>;
             case 'third':
                 return <NhanVienRoute />;
             case 'other':
@@ -113,7 +121,7 @@ const Search = (props:any) => {
             
     );
     
-
+    
     return (  //Screen View
         <>
             <SearchHeader
@@ -121,9 +129,8 @@ const Search = (props:any) => {
                 isHome={false}
                 size={Sizes.Small}
                 isRight
-                navigation={navigation}
                 onClickRightIcon={() => {console.log('RRRR: ')}}
-                onBack={() => RootNavigation.resetTo(RootNavigation.ERouteName.Home)}
+                onBack={() => navigation.goBack()}
             />
             <Block>
                 {contentView()}

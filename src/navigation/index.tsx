@@ -11,7 +11,8 @@ import Tasks from '../screens/Tasks';
 import Search from '../screens/Search';
 import MoRong from '../screens/MoRong';
 import AsyncImage from '../components/AsyncImage';
-import * as RootNavigation from './RootNavigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import MenuSetting from '../screens/MenuSetting';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,27 +40,18 @@ function MainTabNavigation(props: any) {
             screenOptions={({ route }) => ({
                 tabBarVisible: tabBarVisible,
                 tabBarIcon: ({ focused, color, size }) => {
-                    let iconName;
+                    let nameIcon = "home", bgColorIcon, colorIcon;
                     if (route.name === 'Home') {
-                    iconName = focused
-                        ? require('../../assets/icon/home-black.png')
-                        : require('../../assets/icon/home.png');
+                        nameIcon = "home";
                     } else if (route.name === 'Tasks') {
-                    iconName = focused 
-                    ? require('../../assets/icon/tasks-black.png') 
-                    : require('../../assets/icon/tasks.png');
+                        nameIcon = "sitemap";
                     } else if (route.name === 'Search') {
-                        iconName = focused
-                            ? require('../../assets/icon/search-black.png')
-                            : require('../../assets/icon/search.png');
+                        nameIcon = "search"
                     } else if (route.name === 'Settings') {
-                    iconName = focused 
-                    ? require('../../assets/icon/setting-black.png') 
-                    : require('../../assets/icon/setting.png');
+                        nameIcon = "th-large";
                     }
-
-                    // You can return any component that you like here!
-                    return <AsyncImage source={iconName} style={{height:20, width:20}}/>;
+                    
+                    return <Icon name={nameIcon} color={color} size={size}/>
                 },
             
             })}
@@ -74,6 +66,7 @@ function MainTabNavigation(props: any) {
             <Tab.Screen name="Tasks" component={Tasks} />
             <Tab.Screen name="Settings" component={MoRong} />
             <Tab.Screen name="Search" component={Search} />
+            <Tab.Screen name="MenuSetting" component={MenuSetting} />
         </Tab.Navigator>
     );
 

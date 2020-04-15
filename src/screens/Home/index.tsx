@@ -1,14 +1,14 @@
 import React from 'react';
 import {Block, Text, Button} from '../../components/react-ui';
 import MyHeader, { Sizes } from '../../components/MyHeader';
-import * as RootNavigation from '../../navigation/RootNavigation';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 
 
 function Home() {
+    const navigation = useNavigation(); 
 
     const implementSearch = () => {
-        console.log('Search: ')
-        RootNavigation.navigate('Search', {user: 'dadas'}); 
+        navigation.navigate('Search', {user: 'dadas'}); 
     }
     return (
         <>
@@ -24,7 +24,7 @@ function Home() {
             <Block center medium>
                 <Text>Home</Text>
                 <Button
-                    onPress={() => RootNavigation.push('Search', {})}
+                    onPress={implementSearch}
                 ><Text>kkkk</Text></Button>
             </Block>
         </>

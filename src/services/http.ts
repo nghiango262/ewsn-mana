@@ -41,7 +41,7 @@ export async function post(url: string, data: any){
     }
 }
 
-export async function get(url: string){
+export async function get(url: string): Promise<any>{
     console.info(url);
     try {
         let response = await axios(url, {
@@ -50,16 +50,18 @@ export async function get(url: string){
         });
         return response.data;
     } catch (error) {
-        if (error instanceof SyntaxError) {
-            console.log(`Response (SyntaxError) ${error}`)
-        } else {
-            console.log(`Response ${JSON.stringify(error.response)}`)
-        }
+        console.debug(`Response: ${error}`)
+        // if (error instanceof SyntaxError) {
+        //     console.log(`Response (SyntaxError) ${error}`)
+        // } else {
+        //     console.log(`Response ${JSON.stringify(error.response)}`)
+        // }
         if(error.response.data.statusCode === 401) {
             if (loginCount>3) return Promise.reject(`LOGIN QUA NHIEU - KHONG GUI DUOC MESSAGE`) 
             return await requestLogin();
-        } else
-        return Promise.reject(`KHONG GUI DUOC MESSAGE:  ${JSON.stringify(error.response)}`);
+        } else {
+            return Promise.reject(`KHONG GUI DUOC MESSAGE:  ${JSON.stringify(error.response)}`);
+        }
     }
 }
 

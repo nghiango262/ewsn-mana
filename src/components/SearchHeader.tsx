@@ -8,6 +8,7 @@ import {theme} from '../constants';
 import AsyncImage from '../components/AsyncImage';
 import LinearGradient from 'react-native-linear-gradient';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export enum Sizes{
     Small,
@@ -71,11 +72,8 @@ const SearchHeader = (props:IProps) => {
                     <TouchableOpacity
                         onPress={props.onBack}
                     >
-                        <Image 
-                            source={require('../../assets/icon/back.png')}
-                            style={{height:25, width:25}}
-                            resizeMode="contain"
-                        />
+                        <Icon name="arrow-left" color='#EAFAFA' size={25}/>
+                        
                     </TouchableOpacity>
                 }
                 </Block>

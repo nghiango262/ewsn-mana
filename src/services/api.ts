@@ -36,7 +36,7 @@ export function updateTaskStatus(id: string, body: TaskStatusDto) {
     return patch(url, body);
 }
 
-export function getTasks(){
+export function getTasks(): Promise<any>{
     return get(apiTasks);
 }
 

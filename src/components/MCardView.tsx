@@ -26,7 +26,6 @@ export class MCardView extends Component<IMCardProps,{}> {
     render() {
         const {  title, description, data, color, style, imgSrc, addTagNew, ...props } = this.props;
 
-        console.log("data", data)
         const imageStyles = imgSrc?styles.image:{height:0,width:0};
 
         return (

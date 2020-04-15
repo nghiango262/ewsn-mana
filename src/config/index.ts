@@ -1,7 +1,7 @@
 export const apiConfig = {
     // should end with a slash
-    baseUrl: 'http://192.168.0.99:3000/api',//
-    //baseUrl: 'https://iot-nghia.herokuapp.com', //
+    //baseUrl: 'http://192.168.0.105:3000/api',//
+    baseUrl: 'https://nha-khoa.herokuapp.com/api', //
     clientId: '1',
     clientSecret: 'xc34jamesDevV41XwKbWhrsGgHvR3hjwG8',
 };

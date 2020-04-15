@@ -5,6 +5,7 @@ import {theme} from '../constants';
 import AsyncImage from '../components/AsyncImage';
 import LinearGradient from 'react-native-linear-gradient';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export enum Sizes{
     Small,
@@ -23,6 +24,8 @@ export interface IProps{
     gradient?: boolean;
     onClickLeftIcon?: () => void;
     onClickRightIcon?: () => void;
+    onClickRightIcon2?: () => void;
+    onBack?: () => void;
 
 }
 
@@ -66,22 +69,19 @@ const MyHeader = (props:IProps) => {
                     <TouchableOpacity
                         onPress={props.onClickLeftIcon}
                     >
-                        <Image 
+                        {/* <Image 
                             source={require('../../assets/icon/search.png')}
                             style={{height:25, width:25}}
                             resizeMode="contain"
-                        />
+                        /> */}
+                        <Icon name="search" color='#EAFAFA' size={25}/>
                         
                     </TouchableOpacity>
                     : 
                     <TouchableOpacity
-                        onPress={() => navigation.goBack()}
+                        onPress={props.onBack}
                     >
-                        <Image 
-                            source={require('../../assets/icon/back.png')}
-                            style={{height:25, width:25}}
-                            resizeMode="contain"
-                        />
+                        <Icon name="arrow-left" color='#EAFAFA' size={25}/>
                     </TouchableOpacity>
                 }
                 </Block>
@@ -95,9 +95,9 @@ const MyHeader = (props:IProps) => {
                     
                 </Block>
 
-                <Block flex={false} style={styles.rightView}>
-                {isRight && <TouchableOpacity
-                    onPress={props.onClickRightIcon}
+                <Block row flex={false} style={styles.rightView}>
+                {props.onClickRightIcon2 && <TouchableOpacity style={styles.rightIcon}
+                    onPress={props.onClickRightIcon2}
                 >
                     <AsyncImage
                         style={{
@@ -110,7 +110,12 @@ const MyHeader = (props:IProps) => {
                         }
                         placeholderColor='#b3e5fc'/>
                 </TouchableOpacity>}
-
+                {props.onClickRightIcon && <TouchableOpacity 
+                        onPress={props.onClickRightIcon}
+                        style={styles.rightIcon}
+                    >
+                        <Icon name="cog" color={color} size={25}/>
+                    </TouchableOpacity> }
                 </Block>
             </View>
         );
@@ -158,10 +163,15 @@ const styles = StyleSheet.create({
     },
 
     rightView: {
-        width: 60, 
-        justifyContent: 'center', 
-        alignItems: 'flex-end', 
-        paddingRight: 15
+        //width: 60, 
+        justifyContent: 'flex-end', 
+        alignItems: 'center', 
+        paddingRight: 15,
+        //pad
+    },
+
+    rightIcon : {
+        marginStart: 15
     }
 });
 
