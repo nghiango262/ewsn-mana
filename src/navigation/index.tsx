@@ -5,7 +5,6 @@ import {
     Text
 } from 'react-native';
 import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
-;
 import Home from '../screens/Home';
 import Tasks from '../screens/Tasks';
 import Search from '../screens/Search';
@@ -13,8 +12,32 @@ import MoRong from '../screens/MoRong';
 import AsyncImage from '../components/AsyncImage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MenuSetting from '../screens/MenuSetting';
+import { createStackNavigator } from '@react-navigation/stack';
+import MQTT from '../screens/MoRong/MQTT';
 
 const Tab = createBottomTabNavigator();
+
+const StackMoRong = createStackNavigator();
+const navOptionHandler = {
+    headerShown: false,
+
+}
+
+function MoRongComp(props: any) {
+    const { route, navigation } = props;
+    if (route.state && route.state.index > 0) {
+        navigation.setOptions({tabBarVisible: false})
+    } else {
+        navigation.setOptions({tabBarVisible: true})
+    }
+    return (
+        <StackMoRong.Navigator initialRouteName="MoRong">
+            <StackMoRong.Screen name="MoRong" component={MoRong} options={navOptionHandler}/>
+            <StackMoRong.Screen name="MRMQTT" component={MQTT} options={navOptionHandler}/>
+        </StackMoRong.Navigator>
+
+    );
+}
 
 function MainTabNavigation(props: any) {
     const { route } = props;
@@ -47,7 +70,7 @@ function MainTabNavigation(props: any) {
                         nameIcon = "sitemap";
                     } else if (route.name === 'Search') {
                         nameIcon = "search"
-                    } else if (route.name === 'Settings') {
+                    } else if (route.name === 'MoRongComp') {
                         nameIcon = "th-large";
                     }
                     
@@ -64,7 +87,7 @@ function MainTabNavigation(props: any) {
         >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Tasks" component={Tasks} />
-            <Tab.Screen name="Settings" component={MoRong} />
+            <Tab.Screen name="MoRongComp" component={MoRongComp} />
             <Tab.Screen name="Search" component={Search} />
             <Tab.Screen name="MenuSetting" component={MenuSetting} />
         </Tab.Navigator>

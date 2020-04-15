@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import {
     Image,
-    View
+    View,
+    StyleSheet
 } from 'react-native';
+import { Text } from './react-ui';
 
 
 type Style = number | string | Object | Array<Style>
@@ -16,7 +18,8 @@ interface Props {
     },
     source: {
         uri: string
-    }
+    },
+    centerLabel?: string
 }
 
 interface State {
@@ -33,7 +36,8 @@ export default class AsyncImage extends Component<Props, State> {
         const {
             placeholderColor,
             style,
-            source
+            source,
+            centerLabel
         } = this.props
     
         return (
@@ -50,6 +54,19 @@ export default class AsyncImage extends Component<Props, State> {
                     }
                 ]}
                 onLoad={this._onLoad} />
+            
+            {centerLabel? <View
+                style={[
+                    style,
+                    {
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'absolute'
+                    }
+                ]} >
+                    <Text h2 white bold>{centerLabel}</Text>
+                </View> : null
+            }
     
             {!this.state.loaded &&
                 <View
@@ -69,3 +86,9 @@ export default class AsyncImage extends Component<Props, State> {
         this.setState(() => ({ loaded: true }))
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+
+    }
+})

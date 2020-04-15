@@ -8,60 +8,73 @@ import { useNavigation } from '@react-navigation/native';
 const featureArr =[
     {
         id: 1,
-        image: null,
-        title:'quan xi con'
+        image: require('../../../assets/image/nature.png'),
+        title:'MQTT',
+        route: 'MRMQTT'
     }, 
     {
         id: 1,
         image: null,
-        title: 'ao ba lo'
+        title: 'ao ba lo',
+        route: 'MR'
     }, {
         id: 1,
         image: null,
-        title: 'con chuot'
+        title: 'con chuot',
+        route: 'MR'
     }, {
         id: 1,
         image: null,
-        title: 'con cmeo'
+        title: 'con cmeo',
+        route: 'MR'
     }, {
         id: 1,
         image: null,
-        title: 'dien thoai'
+        title: 'dien thoai',
+        route: 'MR'
     }, {
         id: 1,
         image: null,
-        title: 'ly nuoc'
+        title: 'ly nuoc',
+        route: 'MR'
     }, {
         id: 1,
         image: null,
-        title: 'banh trang'
+        title: 'banh trang',
+        route: 'MR'
     }, {
         id: 1,
         image: null,
-        title: 'amazon'
+        title: 'amazon',
+        route: 'MR'
     }, {
         id: 1,
         image: null,
-        title: 'google'
+        title: 'google',
+        route: 'MR'
     }]
-const gridFeatures = () => {
+const gridFeatures = (props: any) => {
+    const {navigation} = props;
     return (
         <Block flex={false}>
         <FlatList
             data={featureArr}
             style={{padding:10, marginTop:10, backgroundColor: '#fff', flex:0}}
-            renderItem={({ item }) => (
-                
+            renderItem={({ item }) => {
+                const iimage = item.image===null? (require('../../../assets/icon/edit.png')) : item.image;
+                return (
                 <View style={{ flex: 1, flexDirection: 'column', padding: 5, justifyContent: 'center',
                 alignItems: 'center', }}>
-                    <TouchableOpacity>
-                    <Image style={styles.imageThumbnail} resizeMode="contain" source={require('../../../assets/icon/edit.png')} />
-                    <Text style={{textAlign:'center', marginTop: 8}}>{item.title}</Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate(item.route)}
+                    >
+                        <Image style={styles.imageThumbnail} resizeMode="contain" source={iimage} />
+                        <Text style={{textAlign:'center', marginTop: 8}}>{item.title}</Text>
                     </TouchableOpacity>
                 </View>
                 
                 
-            )}
+            )}}
             //Setting the number of column
             numColumns={3}
             keyExtractor={(item, index) => index.toString()}
@@ -75,7 +88,7 @@ const UserInforView = () => (
     <Block flex={false} row color="#fff">
         <Block flex={false} middle margin={15}>
             <AsyncImage 
-                source={require('../../../assets/icon/edit.png')}
+                source={require('../../../assets/image/user_avatar_default.png')}
                 style={{height:45, width:45 }}
             />
         </Block>
@@ -109,7 +122,7 @@ function MoRong() {
             />
         <Block>
             {UserInforView()}
-            {gridFeatures()}
+            {gridFeatures({navigation})}
         </Block>
         </>
     )
