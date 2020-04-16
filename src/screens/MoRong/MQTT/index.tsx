@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Block,
     Button,
@@ -6,9 +6,17 @@ import {
 } from '../../../components/react-ui';
 import MyHeader, { Sizes } from '../../../components/MyHeader';
 import { useNavigation } from '@react-navigation/native';
+//import * as Mqtt from '../../../services/mqtt';
 
-const MQTT = () => {
+
+
+const MQTTDemo = () => {
     const navigation = useNavigation();
+    //const client = new Mqtt.Client('ws://ewsn-mqtt.herokuapp.com');
+
+    useEffect(() => {
+        
+    }, []);
 
     //
     const handleClickRight = () => {
@@ -33,4 +41,4 @@ const MQTT = () => {
     )
 }
 
-export default MQTT
+export default MQTTDemo;

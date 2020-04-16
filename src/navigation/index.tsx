@@ -13,7 +13,7 @@ import AsyncImage from '../components/AsyncImage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MenuSetting from '../screens/MenuSetting';
 import { createStackNavigator } from '@react-navigation/stack';
-import MQTT from '../screens/MoRong/MQTT';
+import MQTTDemo from '../screens/MoRong/MQTT';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +33,7 @@ function MoRongComp(props: any) {
     return (
         <StackMoRong.Navigator initialRouteName="MoRong">
             <StackMoRong.Screen name="MoRong" component={MoRong} options={navOptionHandler}/>
-            <StackMoRong.Screen name="MRMQTT" component={MQTT} options={navOptionHandler}/>
+            <StackMoRong.Screen name="MRMQTT" component={MQTTDemo} options={navOptionHandler}/>
         </StackMoRong.Navigator>
 
     );

@@ -2,7 +2,7 @@ import {Dispatch} from 'react'
 import axios from 'axios';
 import { removeObjectForKey, getObjectForKey, setObjectForKey} from '../utils/deviceStorage';
 import { User, LoginDto } from './interface';
-import { login } from './api';
+//import { login } from './api';
 import {gVar, getStateLoginForgVar, saveStateLogin} from '../utils/globalVar';
 import { useDispatch } from "react-redux";
 import { IAccount } from '../store/models/account.interface';
@@ -101,17 +101,17 @@ const requestLoginL = async ():Promise<any> => {
 
     const dispatch: Dispatch<any> = useDispatch()
 
-    const response = await login(credentials);
-    //console.log(JSON.stringify(response, null, 2))
-    if(!response.accessToken) return false;
-    const account: IAccount = {
-        accessToken: response.accessToken,
-        user: response.user,
-        isLogin: true
-    }
-    saveStateLogin(account)
-    dispatch(successLogin(account))
-    return true;
+    // const response = await login(credentials);
+    // //console.log(JSON.stringify(response, null, 2))
+    // if(!response.accessToken) return false;
+    // const account: IAccount = {
+    //     accessToken: response.accessToken,
+    //     user: response.user,
+    //     isLogin: true
+    // }
+    // saveStateLogin(account)
+    // dispatch(successLogin(account))
+    // return true;
     
 }
 
@@ -125,24 +125,24 @@ async function requestLogin():Promise<any> {
         devicecode: gVar.fcmToken?gVar.fcmToken:''
     } 
 
-    login(credentials)
-        .then(result => {
-            console.log('RES: ', result);
-            if (result.accessToken) {
-                gVar.accessToken = result.accessToken;
-                gVar.isLogin = true;
-                saveStateLogin(gVar);
-                return true
-            } else {
-                console.warn('Error: ',result);
-                return false
-            }
+    // login(credentials)
+    //     .then(result => {
+    //         console.log('RES: ', result);
+    //         if (result.accessToken) {
+    //             gVar.accessToken = result.accessToken;
+    //             gVar.isLogin = true;
+    //             saveStateLogin(gVar);
+    //             return true
+    //         } else {
+    //             console.warn('Error: ',result);
+    //             return false
+    //         }
             
-        })
-        .catch(error => {
-            console.warn('Dang nhap thất bai', error);
-            return false;
-        });
+    //     })
+    //     .catch(error => {
+    //         console.warn('Dang nhap thất bai', error);
+    //         return false;
+    //     });
 }
 
 export async function del(url: string){
