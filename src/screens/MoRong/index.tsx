@@ -4,6 +4,8 @@ import {Block, Text, Button} from '../../components/react-ui';
 import MyHeader, { Sizes } from '../../components/MyHeader';
 import AsyncImage from '../../components/AsyncImage';
 import { useNavigation } from '@react-navigation/native';
+import {mqttService} from '../../services/MqttService'
+
 
 const featureArr =[
     {

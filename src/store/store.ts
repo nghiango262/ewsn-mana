@@ -9,7 +9,7 @@ const store: Store = createStore(rootReducers, applyMiddleware(
 ));
 
 store.subscribe(() => {
-    console.log('QUAN')
+    console.log('store.subscribe')
 });
 export default store;
 
