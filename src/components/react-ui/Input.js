@@ -1,8 +1,6 @@
-import React, { Component } from 'react'
-import { StyleSheet, TextInput } from 'react-native'
-//import { Icon } from 'expo';
-//import { Ionicons } from '@expo/vector-icons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, { Component } from 'react';
+import { StyleSheet, TextInput } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 import Text from './Text';
@@ -38,10 +36,10 @@ export default class Input extends Component {
       >
         {
           rightLabel ? rightLabel :
-            <Ionicons
+            <Icon
               color={theme.colors.gray}
               size={theme.sizes.font * 1.35}
-              name={!toggleSecure ? "md-eye" : "md-eye-off"}
+              name={!toggleSecure ? "eye" : "eye-slash"}
           />
         }
       </Button>
@@ -63,12 +61,30 @@ export default class Input extends Component {
     );
   }
 
+  renderRightIcon() {
+    const { onRightIcon} = this.props;
+    if(!onRightIcon) return null;
+    return (
+      <Button
+        style={styles.iconRight}
+        onPress={this.props.onRightIcon}
+      >
+        <Icon
+            color={theme.colors.gray}
+            size={theme.sizes.font * 2.0}
+            name={ "qrcode"}
+        />
+      </Button> 
+    );
+  }
+
   render() {
     const {
       email,
       phone,
       number,
       secure,
+      onRightIcon,
       error,
       style,
       ...props
@@ -102,6 +118,7 @@ export default class Input extends Component {
         />
         {this.renderToggle()}
         {this.renderRight()}
+        {this.renderRightIcon()}
       </Block>
     )
   }
@@ -124,5 +141,13 @@ const styles = StyleSheet.create({
     height: theme.sizes.base * 2,
     top: theme.sizes.base,
     right: 0,
+  },
+  iconRight: {
+    position: 'absolute',
+    alignItems: 'flex-end',
+    width: theme.sizes.base * 2,
+    height: theme.sizes.base * 2,
+    top: 0,
+    right: 5, 
   }
 });

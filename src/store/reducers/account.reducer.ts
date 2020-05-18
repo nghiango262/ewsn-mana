@@ -1,5 +1,5 @@
 import { IAccount } from "../models/account.interface";
-import { LOGIN_SUCCESS, LOGIN_FAILURE } from "../actions/account.action";
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOG_OUT_ACCOUNT } from "../actions/account.action";
 import { IActionBase } from "../models/root.interface";
 import {gVar} from '../../utils/globalVar';
 
@@ -23,6 +23,15 @@ function accountReducer(state: IAccount = initialState, action: IActionBase): IA
                 accessToken: '',
                 isLogin: false
             };
+        }
+
+        case LOG_OUT_ACCOUNT: {
+            return {
+                ...state, 
+                user: (action.account.user),
+                accessToken: '',
+                isLogin: false
+            }
         }
         default:
             return state;

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { FlatList, StyleSheet, Image, View, TouchableOpacity} from 'react-native';
 import {Block, Text, Button} from '../../components/react-ui';
 import MyHeader, { Sizes } from '../../components/MyHeader';
 import AsyncImage from '../../components/AsyncImage';
 import { useNavigation } from '@react-navigation/native';
-import {mqttService} from '../../services/MqttService'
+import {mqttService} from '../../services/MqttService';
+import {removeUserInfo, gVar} from '../../utils/globalVar'
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../store/actions/account.action';
 
 
 const featureArr =[
@@ -54,7 +57,13 @@ const featureArr =[
         image: null,
         title: 'google',
         route: 'MR'
-    }]
+    }
+]
+
+/**
+ * 
+ * @param props View frid Feature
+ */
 const gridFeatures = (props: any) => {
     const {navigation} = props;
     return (
@@ -85,7 +94,9 @@ const gridFeatures = (props: any) => {
     );
 }
 
-//
+/**
+ * User info
+ */
 const UserInforView = () => (
     <Block flex={false} row color="#fff">
         <Block flex={false} middle margin={15}>
@@ -102,13 +113,44 @@ const UserInforView = () => (
     </Block>
 )
 
+
+
 function MoRong() {
     const navigation = useNavigation();
-
+    const dispatch: Dispatch<any> = useDispatch();
     const handleClickRight = () => {
         console.log('RRRR: ')
         navigation.navigate('MenuSetting')
     }
+
+    const signOut = () => {
+        removeUserInfo();
+        dispatch(logOut({
+            user: gVar.user,
+            accessToken: '',
+            isLogin: false
+        }))
+    }
+    
+    const logOutView = () => (
+        <TouchableOpacity
+            onPress={signOut}
+        >
+        <Block flex={false} row color="#fff" margin={[10,0]}>
+            
+            <Block flex={false} middle margin={15}>
+                <AsyncImage 
+                    source={require('../../../assets/image/user_avatar_default.png')}
+                    style={{height:45, width:45 }}
+                />
+            </Block>
+            
+            <Block margin={10} middle>
+                <Text h5>Logout</Text>
+            </Block>
+        </Block>
+        </TouchableOpacity>
+    )
 
     return (
         <>
@@ -125,6 +167,7 @@ function MoRong() {
         <Block>
             {UserInforView()}
             {gridFeatures({navigation})}
+            {logOutView()}
         </Block>
         </>
     )

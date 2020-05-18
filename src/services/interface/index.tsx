@@ -42,6 +42,7 @@ export type TaskStatusDto = {
 export type NhaKhoaDeclareDto = {
     id?: number
     name: string;
+    image?: string
     hotline?: string
     address?: string;
     create_time?: string;
@@ -50,6 +51,7 @@ export type NhaKhoaDeclareDto = {
 export type ProductDeclareDto = {
     id?: string
     name?: string
+    image?: string
     description?: string
     groupProduct?: string
     color?: string
@@ -80,3 +82,18 @@ export type RangDeclareDto = {
     viTriRang: Array<string>,
     soLuong?: number
 }
+
+export type CreateNotify = {
+    title: string,
+    description: string,
+    type: string,
+    spec: any,
+};
+
+export type CreateNotifyTask = {
+    title: string,
+    description: string,
+    manage_user: string,
+    task_for: string,
+    deadline: string,
+};

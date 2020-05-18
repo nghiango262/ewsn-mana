@@ -37,43 +37,51 @@ const navOptionHandler = {
 
 
 const App = () => {
+  let isCancelled = false;
   const dispatch: Dispatch<any> = useDispatch();
   const [loading, setLoading] = useState(false);
-  const account: IAccount = useSelector((state: IStateType) => state.account);
+  const [logIn, setLogIn] = useState(false);
+  let account: IAccount = useSelector((state: IStateType) => state.account);
   console.debug('======> ' , JSON.stringify(account, null, 2)); 
-    
+  // if (logIn) {
+  //   setLogIn(false);
+  // }  
+  
   useEffect(():any => {
+    isCancelled = false;
     //
     (async () => {
       if (account.isLogin) {
         
-        handleLogin({
+        const response = await handleLogin({
           username: account.user.username,
           password: account.userPass?account.userPass : "",
           platform: (Platform.OS).toUpperCase(),
           devicecode: account.fcmToken ? account.fcmToken : "" 
-      })
+        });
+        //
+        //console.log(JSON.stringify(response, null, 2))
+        account  = {
+          accessToken: response.accessToken,
+          user: response.user,
+          userPass: account.userPass?account.userPass : "",
+          isLogin: true
+        }
+        saveStateLogin(account);
+        dispatch(successLogin(account));
+        setLoading(false);
+        setLogIn(account.isLogin);
       }
     })();
     return () => {
-      
+      isCancelled = true;
     }
   }, []);
 
   //call api de xac thuc tai khoan nguoi dung
   const handleLogin = async (credentials: LoginDto) => {
     setLoading(true);
-    const response = await login(credentials);
-    //console.log(JSON.stringify(response, null, 2))
-    const account: IAccount = {
-        accessToken: response.accessToken,
-        user: response.user,
-        userPass: credentials.password,
-        isLogin: true
-    }
-    saveStateLogin(account);
-    dispatch(successLogin(account));
-    setLoading(false); 
+    return await login(credentials);
   }
 
   if (loading) return (<Loader />);

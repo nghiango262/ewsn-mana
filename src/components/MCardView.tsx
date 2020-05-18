@@ -10,6 +10,7 @@ interface IMCardProps {
     title: string
     description: string
     color?: string
+    backgroundColor?: string
     style?: any
     imgSrc: any,
     data: any,
@@ -24,14 +25,17 @@ export class MCardView extends Component<IMCardProps,{}> {
     }
 
     render() {
-        const {  title, description, data, color, style, imgSrc, addTagNew, ...props } = this.props;
-
+        let {  title, description, data, color, backgroundColor, style, imgSrc, addTagNew, ...props } = this.props;
+        if (title === undefined) title = 'No Title';
+        if (description === undefined) title = '';
         const imageStyles = imgSrc?styles.image:{height:0,width:0};
+
+        const rootContainer = [ {backgroundColor: backgroundColor}, styles.container]
 
         return (
             <TouchableOpacity onPress={() => this.onChangePage(data)} >
-                <Block flex={false} color={color || theme.colors.white} style={styles.container} {...props}>
-                    <AsyncImage source={imgSrc} style={styles.image} placeholderColor="white"/>
+                <Block flex={false} color={color || theme.colors.white} style={rootContainer} {...props}>
+                    <AsyncImage source={imgSrc} style={imageStyles} placeholderColor="white"/>
                     { addTagNew && <AsyncImage source={require('../../assets/image/new_tag_yellow.png')} style={styles.newTagImage} />}
                     <Block flex={false} bottom style={styles.content}>
                         <Text h2 white bold style={{padding: 8}} numberOfLines={1}>{title}</Text>
@@ -52,7 +56,7 @@ const styles = StyleSheet.create({
         marginRight: 20,
         marginTop: theme.sizes.base/2,
         marginBottom: theme.sizes.base,
-        backgroundColor: 'rgba(89, 189, 189, 0.3)',
+        //backgroundColor: 'rgba(89, 189, 189, 0.3)',
         maxWidth: Dimensions.get('window').width -40,
         minHeight:60
     },

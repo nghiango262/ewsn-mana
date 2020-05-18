@@ -18,6 +18,7 @@ const apiNotify = `${apiConfig.baseUrl}/notification`;
 const apiNhaKhoa = `${apiConfig.baseUrl}/nhakhoa`; 
 const apiProduct = `${apiConfig.baseUrl}/product`;
 const apiBaoHanh =  `${apiConfig.baseUrl}/phieubaohanh`;
+const apiTraCuuBaoHanh = `${apiConfig.baseUrl}/patient/baohanh`; 
 
 export function login(credentials: LoginDto){
     return post(apiLogin, credentials);
@@ -71,4 +72,9 @@ export function createNewProduct(body: ProductDeclareDto) {
 
 export function khaiBaoBaoHanh(body: BaoHanhDeclareDto) {
     return post(apiBaoHanh, body)
+}
+
+export function traCuuBaoHanh(code: string) {
+    const url = `${apiTraCuuBaoHanh}/${code}`
+    return get(url);
 }
